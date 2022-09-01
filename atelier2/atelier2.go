@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"math/rand"
 	"regexp"
 	"strings"
@@ -24,7 +25,7 @@ func main() {
 
 	num3(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 	tel := new(string)
-	*tel = "450a1232cdg"
+	*tel = "450a1232cdg5672fw<112"
 	telephone(tel)
 	fmt.Println(*tel)
 }
@@ -80,12 +81,24 @@ func num3(args ...int) {
 }
 
 func telephone(tel *string) {
-	reg, _ := regexp.Compile("[^0-9]")
-	*tel = reg.ReplaceAllString(*tel, "")
-	for i := range *tel {
-		if i == 6 {
+	reg, err := regexp.Compile("[^0-9]")
+	if err != nil {
 
-		}
-		//*tel = *tel[:i] + "-" + *tel[i:]
 	}
+	*tel = reg.ReplaceAllString(*tel, "")
+
+	if len(*tel) < 10 {
+		log.Fatal("lol")
+	}
+	var normal string
+	normal = (*tel)[:3]
+	normal += " "
+	normal += (*tel)[3:6]
+	normal += "-"
+	normal += (*tel)[6:10]
+	if len(*tel) > 10 {
+		normal += " poste "
+		normal += (*tel)[10:]
+	}
+	*tel = normal
 }
