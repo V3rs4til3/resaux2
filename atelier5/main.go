@@ -11,17 +11,26 @@ func Somme(numbers []int) int {
 	return somme
 }
 func Moyenne(numbers []int) float64 {
+	if len(numbers) == 0 {
+		return 0
+	}
 	return float64(Somme(numbers) / len(numbers))
 }
 func StandardDeviation(numbers []int) float64 {
-	moyenne := Moyenne(numbers)
-	var somme float64
-	for _, i := range numbers {
-		somme += float64(i - (int(moyenne))*i - (int(moyenne)))
+	if len(numbers) == 0 {
+		return 0
 	}
-	return somme / float64(len(numbers))
+	moy := Moyenne(numbers)
+	somme := 0
+	for _, i := range numbers {
+		somme += (i - int(moy)) * (i - int(moy))
+	}
+	return float64(somme / len(numbers))
 }
 func Max(numbers []int) int {
+	if len(numbers) == 0 {
+		return 0
+	}
 	max := numbers[0]
 	for _, y := range numbers {
 		if max < y {
@@ -31,6 +40,9 @@ func Max(numbers []int) int {
 	return max
 }
 func Min(numbers []int) int {
+	if len(numbers) == 0 {
+		return 0
+	}
 	min := numbers[0]
 	for _, y := range numbers {
 		if min > y {
@@ -52,4 +64,15 @@ func Median(numbers []int) int {
 	} else {
 		return (numbers[len(numbers)/2+1] + numbers[len(numbers)/2-1]) / 2
 	}
+}
+
+func BubbleSort(v []int) []int {
+	for i := 0; i < len(v)-1; i++ {
+		for j := i + 1; j < len(v); j++ {
+			if v[i] > v[j] {
+				v[i], v[j] = v[j], v[i]
+			}
+		}
+	}
+	return v
 }
