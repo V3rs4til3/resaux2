@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>###Titre###</title>
+</head>
+<body>
+
+<label for="calcul">Nombre</label>
+<input type="number" id="num" name="num" value="Submit">
+<button id="btn" name="btn" type="button">Calcul</button>
+<script>
+    let ws = new WebSocket("ws://localhost:8080/ws")
+    ws.onmessage = evt => {
+        console.log(evt.data);
+    }
+    document.getElementById("btn").addEventListener("click", () => {
+        ws.send("calcul:" + document.getElementById("num").value);
+    });
+</script>
+</body>
+</html>
