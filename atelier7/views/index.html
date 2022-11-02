@@ -8,16 +8,19 @@
 </head>
 <body>
 
-<label for="calcul">Nombre</label>
-<input type="number" id="num" name="num" value="Submit">
-<button id="btn" name="btn" type="button">Calcul</button>
+<form method="post">
+    <label>Nombre</label>
+    <input type="number" id="num" name="num" value="Submit">
+    <button id="btn" name="btn" type="button">Calcul</button>
+</form>
+
 <script>
     let ws = new WebSocket("ws://localhost:8080/ws")
-    ws.onmessage = evt => {
-        console.log(evt.data);
-    }
-    document.getElementById("btn").addEventListener("click", () => {
-        ws.send("calcul:" + document.getElementById("num").value);
+
+    document.getElementById("btn").addEventListener("click", (event) => {
+        event.preventDefault();
+        ws.send(document.getElementById("num").value);
+        window.location.href ="./calcul";
     });
 </script>
 </body>

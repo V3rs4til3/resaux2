@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>###TITRE###</h1>
+    <div></div>
+    <img src="assets/img/LOUIS.jpg" height="1000px">
+    <script>
+        let ws = new WebSocket("ws://localhost:8080/ws");
+        ws.onmessage = evt => {
+            console.log(evt.data);
+        }
+        document.querySelector("img").addEventListener("click", () => {
+            ws.send("COUCOU METTONS");
+        });
+    </script>
+</body>
+</html>
